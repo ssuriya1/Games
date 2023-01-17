@@ -1,16 +1,11 @@
-body {
-    background-color: #222;
-}
-
 .card {
     background-color: #fff;
     border-radius: 0.5rem;
-    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.45);
+    box-shadow: 5px 5px 2px 0 rgba(228, 237, 237, 0.2);
     padding-bottom: 1rem;
     cursor: pointer;
     transition: 0.3s;
     text-align: center;
-    background-color: #333;
 }
 
 .noDecoration {
@@ -19,7 +14,7 @@ body {
 }
 
 .card:hover {
-    box-shadow: 5px 5px 2px 0 rgba(228, 237, 237, 0.2);
+    box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.45);
 }
 
 .card h3 {
