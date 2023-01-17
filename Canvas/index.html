@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    #canvas {
+      border: 2px solid red;
+      background: black;
+    }
+  </style>
+  <canvas id="canvas" width="800" height="600"></canvas>
+  <script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+    //ball
+    var x = canvas.width / 2;
+    var y = canvas.height / 2;
+    var radius = 10;
+    dx = 2;
+    dy = 2;
+
+    // player1
+    var px1 = 10;
+    var py1 = canvas.height / 2;
+    var px2 = canvas.width - 30;
+    var py2 = canvas.height / 2;
+    var w = 15;
+    var h = 100;
+
+    // score
+    var pt1 = 0;
+    var pt2 = 0;
+
+    //keyboard controls
+    var uparrow = false;
+    var downarrow = false;
+    var wkey = false;
+    var skey = false;
+    var spacebar = false;
+    document.addEventListener("keydown", release);
+    document.addEventListener("keyup", press);
+
+    function press(k) {
+      if (k.key == "Up" || k.key == "ArrowUp") {
+        uparrow = false;
+      }
+      if (k.key == "Down" || k.key == "ArrowDown") {
+        downarrow = false;
+      }
+      if (k.keyCode == 87) {
+        wkey = false;
+      }
+      if (k.keyCode == 83) {
+        skey = false;
+      }
+      if (k.keyCode == 32) {
+        spacebar = false;
+      }
+    }
+
+    function release(k) {
+      if (k.key == "Up" || k.key == "ArrowUp") {
+        uparrow = true;
+
+      }
+      if (k.key == "Down" || k.key == "ArrowDown") {
+        downarrow = true;
+      }
+      if (k.keyCode == 87) {
+        wkey = true;
+      }
+      if (k.keyCode == 83) {
+        skey = true;
+      }
+      if (k.keyCode == 32) {
+        spacebar = true;
+      }
+    }
+
+    function ball() {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = '#00ffdd';
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    function player1() {
+      ctx.fillStyle = 'red';
+      ctx.fillRect(px1, py1, w, h);
+    }
+
+    function player2() {
+      ctx.fillStyle = 'blue';
+      ctx.fillRect(px2, py2, w, h);
+    }
+
+    function score() {
+      // player 1 
+      if (x + dx > canvas.width - radius) {
+        x = canvas.width / 2;
+        y = canvas.height / 2;
+        pt1++;
+        dx = 2;
+        dy = 2;
+      }
+      ctx.fillStyle = 'red';
+      ctx.font = '20px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('score : ' + pt1, px1 + 50, 30);
+
+      // player 2
+      if (x + dx < radius) {
+        x = canvas.width / 2;
+        y = canvas.height / 2;
+        pt2++;
+        dx = 2;
+        dy = 2;
+      }
+      ctx.fillStyle = 'blue';
+      ctx.font = '20px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('score : ' + pt2, px2 - 50, 30);
+    }
+
+    function gameover() {
+      if (pt1 >= 10) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'red';
+        ctx.font = '20px arial';
+        ctx.textAlign = "center";
+        ctx.fillText("Player 1 wins the game", canvas.width / 2, canvas.height / 2);
+      }
+      else if (pt2 >= 10) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'blue';
+        ctx.font = '20px arial';
+        ctx.textAlign = "center";
+        ctx.fillText("Player 2 wins the game", canvas.width / 2, canvas.height / 2);
+      }
+    }
+    function game() {
+      canvas.removeEventListener('click', event, true);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ball();
+      player1();
+      player2();
+      score();
+      gameover();
+      //ballspeed
+      x += dx;
+      y += dy;
+
+      //bounce top and bottom
+      if (y + dy > canvas.height - radius || y + dy < radius) {
+        dy = -dy;
+      }
+
+      //player 1 collision with ball
+      if (x <= px1 + w && x + radius >= px1 && y <= py1 + h && y + radius >= py1) {
+        dx = -dx;
+        dx += Math.random();
+      }
+
+      //player 2 collision with ball
+      if (x <= px2 + w && x + radius > px2 && y < py2 + h && y + radius > py2) {
+        dx = -dx;
+        dx -= Math.random();
+      }
+
+      //player speed
+      if (wkey) {
+        py1 -= 5;
+        if (py1 < 0) {
+          py1 = 0;
+        }
+      }
+      if (skey) {
+        py1 += 5;
+        if (py1 + h > canvas.height) {
+          py1 = canvas.height - h;
+        }
+      }
+      //player 2 speed
+      if (uparrow) {
+        py2 -= 5;
+        if (py2 < 0) {
+          py2 = 0;
+        }
+      }
+      if (downarrow) {
+        py2 += 5;
+        if (py2 + h > canvas.height) {
+          py2 = canvas.height - h;
+        }
+      }
+    }
+    function menu() {
+      var grd = ctx.createLinearGradient(-10, 100, 50, 10);
+      grd.addColorStop(0, "#ff0000");
+      grd.addColorStop(1, "#0000ff");
+      ctx.fillStyle = grd;
+      var img = new Image();
+      img.src = 'images.jpg';
+      img.onload = () => {
+        ctx.drawImage(img, canvas.width / 2 - 50, canvas.height / 2 - 150, 100, 100);
+      }
+      ctx.font = '40px Arial';
+      ctx.textAlign = "center";
+      ctx.beginPath();
+      ctx.strokeStyle = grd;
+      ctx.rect(20, 345, 120, 70);
+      ctx.rect(640, 345, 120, 70);
+      ctx.rect(300, 255, 200, 100);
+      ctx.stroke();
+      ctx.closePath()
+      ctx.fillText('Ping Pong', x, y);
+      ctx.font = '15px Arial';
+      ctx.fillText('Click to start the game', x, y + 30);
+      ctx.font = '20px Arial';
+      ctx.fillText('W and S', 80, y + 70);
+      ctx.fillText('for player 1', 80, y + 100);
+      ctx.fillText('↑ and ↓', 700, y + 70);
+      ctx.fillText('for player 2', 700, y + 100);
+      canvas.addEventListener('click', event, true);
+    }
+    function event() {
+      setInterval(game, 10);
+    }
+    menu();
+  </script>
+</body>
+
+</html>
