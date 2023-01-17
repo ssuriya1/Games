@@ -6,21 +6,25 @@
             var gnum = prompt("guess the number between 1-10");
             n++;
             if (gnum < num) {
-                alert("too low");
+                alert("low");
             }
             else if (gnum > num) {
-                alert("too high");
+                alert("High");
             }
             else {
-                alert("You are correct");
-                alert("Total no of attempts : " + n);
-                var c = confirm("Do you want to play again?");
-                if (c == true)
-                    game();
-                else
-                    exit;
+                alert("You are correct \n Total no of attempts : " + n);
+                play();
             }
         }
     }
-    game();
+
+    function play() {
+        var c = confirm("Do you want to play?");
+        if (c == true)
+            game();
+        else
+            exit;
+    }
+
+    play();
 </script>
