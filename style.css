@@ -1,7 +1,7 @@
 .card {
     background-color: #fff;
     border-radius: 0.5rem;
-    box-shadow: 5px 5px 2px 0 rgba(228, 237, 237, 0.2);
+    box-shadow: 5px 5px 2px 0 rgba(52, 52, 52, 0.2);
     padding-bottom: 1rem;
     cursor: pointer;
     transition: 0.3s;
