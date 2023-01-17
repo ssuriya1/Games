@@ -1,0 +1,26 @@
+<script>
+    function game() {
+        var num = Math.ceil(Math.random() * 10);
+        var n = 0;
+        for (; ;) {
+            var gnum = prompt("guess the number between 1-10");
+            n++;
+            if (gnum < num) {
+                alert("too low");
+            }
+            else if (gnum > num) {
+                alert("too high");
+            }
+            else {
+                alert("You are correct");
+                alert("Total no of attempts : " + n);
+                var c = confirm("Do you want to play again?");
+                if (c == true)
+                    game();
+                else
+                    exit;
+            }
+        }
+    }
+    game();
+</script>
