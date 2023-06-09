@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Save from Sucide</title>
+  </head>
+
+  <body>
+    <div class="mainMenu" id="mainMenu">
+      <h3 class="title">Save from Sucide</h3>
+      <div id="start" class="reset" onclick="randomGen()">▶ Play Game</div>
+      <div id="volume" class="reset">Sound ON 🔊</div>
+      <div class="reset" onclick="about()">About ❗</div>
+    </div>
+    <p id="about" class="about" hidden="true">
+      The game is to find the exact word based on the given hint. <br />
+      You can use either your keyboard or the virtual keyboard given. <br />
+      If you loose more than 3 chance or on timeout, you loose the game. <br />
+      Time gets resets when the word is correct. All the best 👍<br />
+    </p>
+    <div id="game" class="game">
+      <input id="text" type="text" hidden />
+      <div class="board" id="hint"></div>
+      <div class="board" id="password"></div>
+      <div class="keyboard" id="keyboard"></div>
+      <div class="image" id="gallows" hidden="true">
+        <img src="../assert/s0.jpg" alt="hangman-image" />
+      </div>
+      <div class="score" id="score" hidden="true">Score: 0</div>
+      <span class="sandclock"></span>
+      <span class="countdown" data-value="0"> </span>
+    </div>
+    <a class="reset" id="menu" hidden="true" onclick="location.reload()">
+      Play Again ?
+    </a>
+  </body>
+  <style>
+    body {
+      user-select: none;
+      font-family: cursive, monospace;
+      font-size: 1.5rem;
+      color: lightgray;
+      background-color: #000;
+      min-width: 320px;
+      transition: 0.5s ease-in-out;
+      text-align: center;
+    }
+
+    .image {
+      padding: 0 30%;
+    }
+
+    .image img {
+      width: 100%;
+    }
+
+    .board {
+      width: 100%;
+      font-size: 2rem;
+      margin: 1rem 0;
+      color: aqua;
+    }
+
+    .result {
+      width: 100%;
+      font-size: 4rem;
+      color: aqua;
+      margin-top: 10rem;
+      margin-bottom: 1rem;
+    }
+
+    .reset {
+      font-size: 3rem;
+      cursor: pointer;
+      color: green;
+    }
+
+    .reset:hover {
+      color: white;
+    }
+
+    .mainMenu {
+      color: aqua;
+      width: 100%;
+      font-size: 3rem;
+    }
+
+    .score {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 1%;
+      margin: 2%;
+      color: darkcyan;
+    }
+
+    .about {
+      color: darkcyan;
+    }
+
+    .keyboard {
+      position: absolute;
+      bottom: 1rem;
+      width: 95%;
+      display: flex;
+      margin: 2%;
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-content: center;
+      align-items: center;
+    }
+
+    .letter {
+      width: 2rem;
+      height: 2rem;
+      margin: 5px;
+      padding: 5px;
+      cursor: pointer;
+      border: 3px solid gray;
+      border-radius: 10px;
+    }
+
+    .letter:hover {
+      color: white;
+      border: 3px solid white;
+      background-color: #333;
+    }
+
+    .countdown {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 3%;
+      margin-left: 6%;
+      color: crimson;
+      font-size: 2rem;
+      font-family: cursive;
+    }
+
+    .sandclock {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 3%;
+      font-size: 2rem;
+      animation: animate 1s linear infinite;
+    }
+
+    @keyframes animate {
+      0% {
+        transform: rotateZ(0);
+      }
+      50% {
+        transform: rotateZ(259deg);
+      }
+      60% {
+        transform: rotateZ(360deg);
+      }
+      90% {
+        transform: rotateZ(360deg);
+      }
+      100% {
+        transform: rotateZ(360deg);
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .letter {
+        margin: 2px;
+        padding: 2px;
+      }
+
+      .game {
+        margin-top: 2em;
+      }
+
+      .image {
+        padding: 0;
+      }
+      .countdown {
+        left: 2rem;
+      }
+    }
+  </style>
+  <script>
+    var keys = "";
+    var word = "";
+    var index = "";
+    var keyboard = "";
+    var hiddenWord = "";
+    var incorrectWord = 0;
+    var correctWord = 0;
+    var keyboardLetters = new Array(26);
+    var falseAudio = new Audio("../assert/no.wav");
+    var trueAudio = new Audio("../assert/yes.wav");
+    var counter = 150;
+    var interval = 1000;
+
+    var repetation = [];
+    const sentence = [
+      "men in black",
+      "pikachu",
+      "kung fu panda",
+      "doremon",
+      "chhota bheem",
+      "hulk",
+      "wolverine",
+      "ninja hattori",
+      "shin chan",
+      "ben ten",
+    ];
+    const sentenceHints = [
+      "blacksuite dealing with alians",
+      "Electric rat",
+      "black and white dragon warrior",
+      "future robot",
+      "Energitic Ladoo",
+      "human to green gaint monster",
+      "gaint claws in hands",
+      "small boy knows ninja technique",
+      "5years old naughty boy",
+      "alians tranformation watch",
+    ];
+
+    var volume = document.getElementById("volume");
+    volume.addEventListener("click", function () {
+      volume = document.getElementById("volume");
+      if (volume.innerHTML === "Sound ON 🔊") {
+        volume.innerHTML = "Sound OFF 🔈";
+        falseAudio = new Audio();
+        trueAudio = new Audio();
+      } else {
+        volume.innerHTML = "Sound ON 🔊";
+        falseAudio = new Audio("../assert/no.wav");
+        trueAudio = new Audio("../assert/yes.wav");
+      }
+    });
+
+    setTimeout(() => {
+      setInterval(() => {
+        const el = document.querySelector(".countdown");
+        const sandclock = document.querySelector(".sandclock");
+        const elValue = Number(el.getAttribute("data-value"));
+        if (counter === elValue) {
+          gameOver();
+        } else {
+          counter--;
+          sandclock.innerHTML = "⌛";
+          el.innerHTML = `${counter}`;
+        }
+      }, interval);
+    }, 10000);
+
+    document.addEventListener("DOMContentLoaded", mainMenu);
+
+    function mainMenu() {
+      document.getElementById("mainMenu");
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (String.fromCharCode(event.keyCode).match("[A-Z]")) {
+        keys = event.keyCode;
+        if (document.getElementById("mainMenu").hidden === true) {
+          check(keys);
+        }
+      }
+    });
+
+    function randomGen() {
+      hiddenWord = "";
+      document.getElementById("about").hidden = true;
+      document.getElementById("mainMenu").hidden = true;
+      document.getElementById("score").hidden = false;
+      document.getElementById("gallows").hidden = false;
+      index = Math.floor(Math.random() * sentence.length);
+      word = sentence[index];
+      for (i = 0; i < word.length; i++) {
+        word.charAt(i) === " " ? (hiddenWord += " ") : (hiddenWord += "-");
+      }
+      start();
+    }
+
+    function start() {
+      alphaBoard();
+      if (!repetation.includes(index)) {
+        repetation.push(index);
+        document.getElementById("hint").innerHTML =
+          "🍳 hint: " + sentenceHints[index];
+        document.getElementById("password").innerHTML =
+          hiddenWord.toUpperCase();
+      } else {
+        randomGen();
+      }
+    }
+
+    function alphaBoard(isRequired) {
+      var keyboard = "";
+      var keys = undefined;
+      for (i = 65; i <= 90; i++) {
+        keyboardLetters[i] = String.fromCharCode(i);
+        keyboard +=
+          '<div class="letter" onclick="check(' +
+          i +
+          ')" id=' +
+          i +
+          ">" +
+          keyboardLetters[i] +
+          "</div>";
+      }
+      document.getElementById("keyboard").innerHTML = keyboard;
+    }
+
+    String.prototype.setCharacter = function (position, char) {
+      return this.substr(0, position) + char + this.substr(position + 1);
+    };
+
+    function check(num) {
+      var gussedChar = false;
+      for (i = 0; i < word.length; i++) {
+        if (word.toUpperCase().charAt(i) === keyboardLetters[num]) {
+          hiddenWord = hiddenWord.setCharacter(i, keyboardLetters[num]);
+          gussedChar = true;
+        }
+      }
+
+      if (document.getElementById(num).style.color === "" || null) {
+        if (gussedChar === true) {
+          trueAudio.play();
+          document.getElementById("password").innerHTML = hiddenWord;
+          document.getElementById(num).style.background = "#003300";
+          document.getElementById(num).style.color = "#00C000";
+          document.getElementById(num).style.border = "3px solid #00C000";
+          document.getElementById(num).style.cursor = "default";
+        } else {
+          falseAudio.play();
+          document.getElementById(num).style.background = "#330000";
+          document.getElementById(num).style.color = "#C00000";
+          document.getElementById(num).style.border = "3px solid #C00000";
+          document.getElementById(num).style.cursor = "default";
+
+          incorrectWord++;
+          var image = "../assert/s" + incorrectWord + ".jpg";
+          document.getElementById("gallows").innerHTML =
+            '<img src="' + image + '">';
+        }
+      }
+
+      if (word.toUpperCase() == hiddenWord) {
+        correctWord++;
+        // counter = 60;
+        incorrectWord = 0;
+        // interval *= counter;
+        document.getElementById("gallows").innerHTML =
+          ' <img src="../assert/s0.jpg" alt="hangman-image" />';
+        document.getElementById("score").innerHTML = "Score: " + correctWord;
+        if (sentence.length !== repetation.length) {
+          randomGen();
+        } else {
+          document.getElementById("game").innerHTML =
+            "<div class='result'>You Won!</div>";
+          document.getElementById("menu").hidden = false;
+        }
+      }
+
+      incorrectWord > 3 ? gameOver() : null;
+    }
+
+    function gameOver() {
+      document.getElementById("game").innerHTML =
+        "<div class='result'>You lose! <br> Answer: " +
+        word +
+        "<br> Your score: " +
+        correctWord +
+        " </div>";
+      document.getElementById("menu").hidden = false;
+    }
+
+    function about() {
+      let isAbout = document.getElementById("about");
+      isAbout.hidden = !isAbout.hidden;
+    }
+  </script>
+</html>
