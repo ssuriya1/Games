@@ -48,18 +48,18 @@ document.querySelectorAll("span").forEach((span) =>
   })
 );
 
-// Toggle dark/light mode
-var modeToggle = document.getElementById("modeToggle");
-modeToggle.addEventListener("click", function () {
-  var body = document.body;
-  if (body.classList.contains("dark-mode")) {
-    body.classList.remove("dark-mode");
-    body.classList.add("light-mode");
-  } else {
-    body.classList.remove("light-mode");
-    body.classList.add("dark-mode");
-  }
-});
+// // Toggle dark/light mode
+// var modeToggle = document.getElementById("modeToggle");
+// modeToggle.addEventListener("click", function () {
+//   var body = document.body;
+//   if (body.classList.contains("dark-mode")) {
+//     body.classList.remove("dark-mode");
+//     body.classList.add("light-mode");
+//   } else {
+//     body.classList.remove("light-mode");
+//     body.classList.add("dark-mode");
+//   }
+// });
 
 // JSON data stored as a variable
 var jsonData = [
