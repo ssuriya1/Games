@@ -5,6 +5,82 @@ body {
     padding: 20px;
 }
 
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #111;
+    color: #fff;
+}
+
+.dark-mode .card {
+    background-color: #222;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    /* Dark mode text color */
+}
+
+/* Light mode styles */
+body.light-mode {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.light-mode .card {
+    background-color: #fff;
+}
+
+/* Toggle styles */
+span.button {
+    background: #fff;
+    border-radius: 18px;
+    display: block;
+    min-width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 1rem;
+    float: right;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+span.button>i {
+    margin-top: 12px;
+}
+
+span.button.off {
+    color: #fff;
+    background-color: #222;
+    animation: clicked 0.2s ease;
+}
+
+@keyframes clicked {
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+span.button.on {
+    color: #333;
+    background-color: #fff;
+    animation: clickedIn 0.2s ease;
+}
+
+@keyframes clickedIn {
+    50% {
+        transform: scale(0.7);
+    }
+}
+
+.space {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    padding: 1rem;
+    text-align: center;
+}
+
 /* Card Styles */
 .card-container {
     display: flex;
