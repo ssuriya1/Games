@@ -11,7 +11,7 @@ body.dark-mode {
     color: #fff;
 }
 
-.dark-mode .card {
+.dark-mode a {
     background-color: #222;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: #fff;
@@ -24,7 +24,7 @@ body.light-mode {
     color: #333;
 }
 
-.light-mode .card {
+.light-mode a {
     background-color: #fff;
 }
 
@@ -88,14 +88,17 @@ span.button.on {
     gap: 20px;
 }
 
-a {
+.card {
     padding: 1.5rem;
+}
+
+a {
     flex: auto;
-    max-width: 28rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    max-width: 30rem;
     border-radius: 5px;
     color: #333;
     /* Default text color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .anchorCard {
