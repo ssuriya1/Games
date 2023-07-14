@@ -1,0 +1,148 @@
+body {
+    user-select: none;
+    font-family: cursive, monospace;
+    font-size: 1.5rem;
+    color: lightgray;
+    background-color: #000;
+    min-width: 320px;
+    transition: 0.5s ease-in-out;
+    text-align: center;
+}
+
+.image {
+    padding: 0 30%;
+}
+
+.image img {
+    width: 100%;
+}
+
+.board {
+    width: 100%;
+    font-size: 2rem;
+    margin: 1rem 0;
+    color: aqua;
+}
+
+.result {
+    width: 100%;
+    font-size: 4rem;
+    color: aqua;
+    margin-top: 10rem;
+    margin-bottom: 1rem;
+}
+
+.reset {
+    font-size: 3rem;
+    cursor: pointer;
+    color: green;
+}
+
+.reset:hover {
+    color: white;
+}
+
+.mainMenu {
+    color: aqua;
+    width: 100%;
+    font-size: 3rem;
+}
+
+.score {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1%;
+    margin: 2%;
+    color: darkcyan;
+}
+
+.about {
+    color: darkcyan;
+}
+
+.keyboard {
+    position: absolute;
+    bottom: 1rem;
+    width: 95%;
+    display: flex;
+    margin: 2%;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+
+.letter {
+    width: 2rem;
+    height: 2rem;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+    border: 3px solid gray;
+    border-radius: 10px;
+}
+
+.letter:hover {
+    color: white;
+    border: 3px solid white;
+    background-color: #333;
+}
+
+.countdown {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 3%;
+    margin-left: 6%;
+    color: crimson;
+    font-size: 2rem;
+    font-family: cursive;
+}
+
+.sandclock {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 3%;
+    font-size: 2rem;
+    animation: animate 1s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotateZ(0);
+    }
+
+    50% {
+        transform: rotateZ(259deg);
+    }
+
+    60% {
+        transform: rotateZ(360deg);
+    }
+
+    90% {
+        transform: rotateZ(360deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .letter {
+        margin: 2px;
+        padding: 2px;
+    }
+
+    .game {
+        margin-top: 2em;
+    }
+
+    .image {
+        padding: 0;
+    }
+}
