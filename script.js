@@ -1,8 +1,9 @@
 // Function to update the card based on JSON data
 function updateCard(jsonData) {
   var chatCard = document.getElementById("chatCard");
-  chatCard.innerHTML = "";
-
+  if (chatCard !== undefined) {
+    chatCard.innerHTML = "";
+  }
   jsonData.forEach(function (data) {
     let anchorCard = document.createElement("a");
     anchorCard.href = data.url;
@@ -48,18 +49,20 @@ document.querySelectorAll("span").forEach((span) =>
   })
 );
 
-// // Toggle dark/light mode
-// var modeToggle = document.getElementById("modeToggle");
-// modeToggle.addEventListener("click", function () {
-//   var body = document.body;
-//   if (body.classList.contains("dark-mode")) {
-//     body.classList.remove("dark-mode");
-//     body.classList.add("light-mode");
-//   } else {
-//     body.classList.remove("light-mode");
-//     body.classList.add("dark-mode");
-//   }
-// });
+// Toggle dark/light mode
+var modeToggle = document.getElementById("modeToggle");
+if (modeToggle !== undefined) {
+  modeToggle.addEventListener("click", function () {
+    var body = document.body;
+    if (body.classList.contains("dark-mode")) {
+      body.classList.remove("dark-mode");
+      body.classList.add("light-mode");
+    } else {
+      body.classList.remove("light-mode");
+      body.classList.add("dark-mode");
+    }
+  });
+}
 
 // JSON data stored as a variable
 var jsonData = [
