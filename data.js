@@ -2,27 +2,27 @@
 var jsonData = [
   {
     title: "Guess the Number",
-    imageURL: "guess the number.png",
+    imageURL: "./assets/guess the number.png",
     url: "Guess The Number/index.html",
   },
   {
     title: "Ping Pong",
-    imageURL: "Canvas.png",
+    imageURL: "./assets/Canvas.png",
     url: "Canvas/index.html",
   },
   {
     title: "Tower-of-hanoi",
-    imageURL: "TOH.png",
-    url: "/Tower-of-hanoi",
+    imageURL: "./assets/TOH.png",
+    url: "Tower-of-hanoi/index.html",
   },
   {
-    title: "Tower-of-hanoi",
-    imageURL: "TOH.png",
-    url: "/Tower-of-hanoi",
+    title: "Hangman",
+    imageURL: "./assets/Hangman.png",
+    url: "Hangman/common.html",
   },
   {
     title: "Quiz",
-    imageURL: "Quiz.png",
+    imageURL: "",
     description: "Unable to play this game in browser.",
     url: "#",
   },
