@@ -27,7 +27,7 @@
       <div class="board" id="password"></div>
       <div class="keyboard" id="keyboard"></div>
       <div class="image" id="gallows" hidden="true">
-        <img src="../assert/s0.jpg" alt="hangman-image" />
+        <img src="./assert/s0.jpg" alt="hangman-image" />
       </div>
       <div class="score" id="score" hidden="true">Score: 0</div>
       <span class="sandclock"></span>
@@ -71,8 +71,8 @@
         trueAudio = new Audio();
       } else {
         volume.innerHTML = "Sound ON 🔊";
-        falseAudio = new Audio("../assert/no.wav");
-        trueAudio = new Audio("../assert/yes.wav");
+        falseAudio = new Audio("./assert/no.wav");
+        trueAudio = new Audio("./assert/yes.wav");
       }
     });
 
@@ -179,7 +179,7 @@
           document.getElementById(num).style.cursor = "default";
 
           incorrectWord++;
-          var image = "../assert/s" + incorrectWord + ".jpg";
+          var image = "./assert/s" + incorrectWord + ".jpg";
           document.getElementById("gallows").innerHTML =
             '<img src="' + image + '">';
         }
@@ -191,7 +191,7 @@
         incorrectWord = 0;
         // interval *= counter;
         document.getElementById("gallows").innerHTML =
-          ' <img src="../assert/s0.jpg" alt="hangman-image" />';
+          ' <img src="./assert/s0.jpg" alt="hangman-image" />';
         document.getElementById("score").innerHTML = "Score: " + correctWord;
         if (sentence.length !== repetation.length) {
           randomGen();
