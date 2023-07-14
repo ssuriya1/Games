@@ -51,7 +51,7 @@ document.querySelectorAll("span").forEach((span) =>
 
 // Toggle dark/light mode
 var modeToggle = document.getElementById("modeToggle");
-if (modeToggle !== undefined) {
+if (modeToggle !== undefined || null) {
   modeToggle.addEventListener("click", function () {
     var body = document.body;
     if (body.classList.contains("dark-mode")) {
