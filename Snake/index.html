@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Screen Snake Game with Menu, Pause, and Mobile Controls</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <section id="menu" aria-label="Game Menu">
+            <h1>Snake Game</h1>
+            <div class="sound-controls">
+                <button id="musicToggle" class="icon-button" aria-label="Toggle Music">
+                    <span class="icon">🎵</span>
+                    <span class="label">Music: ON</span>
+                </button>
+                <button id="soundToggle" class="icon-button" aria-label="Toggle Sound Effects">
+                    <span class="icon">🔊</span>
+                    <span class="label">Sound: ON</span>
+                </button>
+            </div>
+            <button id="startBtn" class="primary-btn">Start Game</button>
+        </section>
+
+        <section id="game-over" style="display: none;" aria-label="Game Over Screen">
+            <h1>Game Over!</h1>
+            <p id="finalScore">Score: 0</p>
+            <button id="restartBtn" class="primary-btn">Restart</button>
+        </section>
+
+        <div id="game-container">
+            <div id="score" aria-live="polite">Score: 0</div>
+            <button id="pauseBtn" style="display: none;" aria-label="Pause Game">Pause</button>
+            <canvas id="gameCanvas" aria-label="Game Area"></canvas>
+        </div>
+
+        <nav id="controls" style="display: none;" aria-label="Mobile Controls">
+            <button class="control-btn" id="leftBtn" aria-label="Move Left">◀️</button>
+            <button class="control-btn" id="upBtn" aria-label="Move Up">🔼</button>
+            <button class="control-btn" id="downBtn" aria-label="Move Down">🔽</button>
+            <button class="control-btn" id="rightBtn" aria-label="Move Right">▶️</button>
+        </nav>
+
+        <div id="audio-container" hidden>
+            <audio id="eatSound" src="../assets/food.mp3" preload="auto"></audio>
+            <audio id="bgMusic" src="../assets/background.mp3" loop preload="auto"></audio>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
