@@ -18,7 +18,7 @@ var jsonData = [
   {
     title: "Hangman",
     imageURL: "./assets/Hangman.png",
-    url: "Hangman/common.html",
+    url: "Hangman/index.html",
   },
   {
     title: "Quiz",
