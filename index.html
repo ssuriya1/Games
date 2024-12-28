@@ -1,32 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-      crossorigin="anonymous"
-    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <title>Games</title>
-  </head>
-
-  <body>
-    <span class="button on" id="modeToggle">
-      <i class="fa fa-moon-o" aria-hidden="true"></i>
-    </span>
-
-    <div class="space">
-      <h1>Games</h1>
+</head>
+<body>
+    <div class="space responsive-space">
+        <h1>Games</h1>
     </div>
-
-    <div class="card-container" id="chatCard">
-      <!-- Card items will be dynamically added here -->
-    </div>
+    <div class="card-container responsive-grid" id="chatCard"></div>
     <script src="script.js"></script>
     <script src="data.js"></script>
-  </body>
+</body>
 </html>
