@@ -1,0 +1,529 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background: transparent;  /* Remove old gradient */
+  color: #fff;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* Update mobile styles */
+@media (max-width: 768px) {
+  body {
+    padding: 5px;
+    height: 100vh;
+    gap: 5px;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin: 5px 0;
+  }
+
+  .controls-top {
+    display: none;
+  }
+
+  #gameCanvas {
+    width: 100%;
+    height: 75vh;
+    margin: 0;
+  }
+
+  .game-controls-container {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    padding: 8px;
+    gap: 10px;
+  }
+
+  .control-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  #startBtn {
+    background: linear-gradient(to bottom, #00ff88, #00cc6a);
+  }
+}
+
+h1 {
+  margin-bottom: 40px;
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+  position: static;
+  transform: none;
+  margin: 0;
+  z-index: 5;
+}
+
+/* Update game container styles */
+#gameContainer {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 10px;
+  width: 90%;
+  justify-content: center;
+  flex: 1;
+}
+
+#controlsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 200px;
+}
+
+#gameCanvas {
+  border: 2px solid #00ff88;
+  background: transparent;  /* Make canvas background transparent */
+  display: block;
+  max-width: 500px;
+  width: 80vw;
+  height: 85vh;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+  border-radius: 8px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+#menu {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: static;
+  transform: none;
+  gap: 10px;
+  z-index: 50;
+  background: rgba(26, 26, 46, 0.7);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: 1px solid #00ff88;
+}
+
+#info {
+  display: none;
+}
+
+#score {
+  font-size: 18px;
+  color: #00ff88;
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.5);
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  background: linear-gradient(to bottom, #00ff88, #00cc6a);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  border-radius: 25px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+}
+
+button:hover {
+  background: linear-gradient(to bottom, #00ff99, #00dd75);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+}
+
+#audioControls {
+  position: static;
+  transform: none;
+  flex-direction: column;
+  background: rgba(26, 26, 46, 0.7);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: 1px solid #00ff88;
+  display: flex;
+  gap: 20px;
+  z-index: 50;
+}
+
+#audioControls label {
+  color: #00ff88;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="range"] {
+  accent-color: #00ff88;
+  width: 100%;
+  margin: 5px 0;
+}
+
+#gameControls {
+  background: rgba(26, 26, 46, 0.7);
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid #00ff88;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  #gameContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #controlsContainer {
+    width: 80vw;
+    max-width: 500px;
+  }
+
+  #gameCanvas {
+    width: 95vw;
+    height: 70vh;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  #gameControls {
+    padding: 10px;
+  }
+
+  .control-group label {
+    font-size: 14px;
+  }
+}
+
+.game-controls-container {
+  display: none;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  margin: 5px auto;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  z-index: 2;
+}
+
+.control-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(0, 255, 136, 0.2);
+  border: 1px solid #00ff88;
+  color: #00ff88;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  transition: all 0.2s ease;
+}
+
+.control-btn:active {
+  background: rgba(0, 255, 136, 0.4);
+  transform: scale(0.95);
+}
+
+/* Update mobile responsive styles */
+@media (max-width: 768px) {
+  .game-controls-container {
+    display: flex;
+    position: relative;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+  }
+
+  /* Update health bar text for mobile */
+  #gameCanvas {
+    width: 100%;
+    height: 75vh;
+    margin: 10px 0;
+    font-size: 10px;
+  }
+
+  #pauseBtn {
+    background: rgba(0, 255, 136, 0.4);
+  }
+
+  #pauseBtn:active {
+    background: rgba(0, 255, 136, 0.6);
+  }
+
+  #gameContainer {
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  #mobileControls {
+    display: block;
+  }
+
+  #controlsContainer {
+    width: 100%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    max-width: 200px;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin: 5px 0;
+  }
+
+  /* Hide desktop controls on mobile */
+  .control-group button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .pause-menu {
+    width: 80%;
+    max-width: 300px;
+  }
+}
+
+/* Add pause menu styles */
+.pause-menu {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(26, 26, 46, 0.95);
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid #00ff88;
+    z-index: 9999;
+    min-width: 250px;
+}
+
+.pause-menu.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 20%;
+}
+
+/* Ensure pause menu content is centered */
+.pause-menu h2 {
+    color: #00ff88;
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+.pause-menu .audio-controls {
+    width: 100%;
+}
+
+/* Add pause menu content styles */
+.pause-menu h2 {
+    color: #00ff88;
+    margin-bottom: 15px;
+}
+
+.pause-menu button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.audio-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.audio-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #00ff88;
+}
+
+/* Update mobile responsive styles */
+@media (max-width: 768px) {
+  #gameContainer {
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  #gameCanvas {
+    width: 100%;
+    height: 75vh;
+    margin: 10px 0;
+  }
+
+  #mobileControls {
+    display: block;
+  }
+
+  #controlsContainer {
+    width: 100%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    max-width: 200px;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin: 5px 0;
+  }
+
+  /* Hide desktop controls on mobile */
+  .control-group button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .pause-menu {
+    width: 80%;
+    max-width: 300px;
+  }
+
+  .controls-top #startBtn {
+    display: none;
+  }
+}
+
+.start-btn {
+  background: rgba(0, 255, 136, 0.4);
+}
+
+.start-btn:active {
+  background: rgba(0, 255, 136, 0.6);
+}
+
+/* Ensure pause button has proper styles in both desktop and mobile */
+#pauseBtn {
+    background: rgba(0, 255, 136, 0.4);
+    display: none;
+}
+
+#pauseBtn .visible {
+    display: inline-flex;
+}
+
+/* Update pause button styles */
+#pauseBtn, #mobilePauseBtn {
+    display: none;
+    background: rgba(0, 255, 136, 0.4);
+}
+
+#pauseBtn:hover, #mobilePauseBtn:hover {
+    background: rgba(0, 255, 136, 0.6);
+}
+
+/* Update space background effect styles */
+@keyframes space-float {
+    0% { transform: translate(0, -100%); }
+    100% { transform: translate(0, 100%); }
+}
+
+.space-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+}
+
+.stars {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: radial-gradient(
+        2px 2px at calc(100vw * var(--x)) calc(100vh * var(--y)),
+        #fff,
+        transparent
+    );
+    animation: space-float linear infinite;
+    top: -100%;
+}
+
+/* Update star layers with different positions and speeds */
+.stars:nth-child(1) { --x: 0.1; --y: 0.3; animation-duration: 15s; opacity: 0.8; }
+.stars:nth-child(2) { --x: 0.5; --y: 0.7; animation-duration: 20s; opacity: 0.6; }
+.stars:nth-child(3) { --x: 0.8; --y: 0.2; animation-duration: 25s; opacity: 0.7; }
+.stars:nth-child(4) { --x: 0.3; --y: 0.9; animation-duration: 30s; opacity: 0.5; }
+.stars:nth-child(5) { --x: 0.7; --y: 0.4; animation-duration: 35s; opacity: 0.9; }
+
+/* Ensure other UI elements are above the space background */
+.game-controls-container,
+h1,
+.controls-top {
+    position: relative;
+    z-index: 2;
+}
+
+/* Update controls visibility */
+.controls-top {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    z-index: 2;
+}
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Only hide top controls on mobile */
+@media (max-width: 768px) {
+    .controls-top {
+        display: none;
+    }
+}
