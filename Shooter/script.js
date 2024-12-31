@@ -21,7 +21,7 @@ const resumeButton = document.getElementById('resumeButton');
 const GAME_SETTINGS = {
   BULLET_POOL_SIZE: 30,
   BOSS_HEALTH: 500,
-  PLAYER_HEALTH: 100,
+  PLAYER_HEALTH: 200,
   BOSS_SCORE_THRESHOLD: 1300,
   MAX_ENEMIES: 10,
   BULLET_SPEED: 15,
@@ -540,7 +540,7 @@ function spawnEnemy() {
 }
 
 function spawnBoss() {
-  const isFinalBoss = score >= 1000;
+  const isFinalBoss = score >= 300;
   const bossType = isFinalBoss ? GAME_SETTINGS.BOSS_TYPES.FINAL_BOSS : GAME_SETTINGS.BOSS_TYPES.MINI_BOSS;
   enemies = [];
 
